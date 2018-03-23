@@ -1,6 +1,7 @@
 package com.training.java;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 public class MyArrayListTester {
     public static void main(String[] args) {
@@ -49,6 +50,27 @@ class MyArrayList {
         size++;
     }
 
+    // + add element at index
+    public void add(int index, Object obj) {
+        if(index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        add(obj);
+
+        // move the elements
+        for(int i = size - 1; i > index; i--){
+            dataStore[i] = dataStore[i - 1];
+        }
+    }
+
+    // + addAll
+    public void addAll(Collection collection){
+        boolean flag= true;
+        for (Object object: collection) {
+            add(object);
+        }
+    }
+
     // + set by index
     public void set(Object obj, int index) {
         dataStore[index] = obj;
@@ -56,20 +78,55 @@ class MyArrayList {
 
     // print all the elements in the Arraylist -- homework
 
+
     // + remove
+    public void remove(Object obj){
+        int index = indexOf(obj);
+        for(int i=index;i<size-1;i++){ // shift the elements by 1 position
+            dataStore[i] = dataStore[i + 1];
+        }
+        size--;
+    }
+
+    // + removeAll
+    public void removeAll(Collection collection) {
+        for (Object obj:collection) {
+            remove(obj);
+        }
+    }
 
     // + get by index
     public Object get(int index) {
+        if(index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         return dataStore[index];
     }
 
     // + replace by index
 
-    // + removeAll
+
 
     // + size
     public int size(){
         return this.size;
+    }
+
+    public boolean isEmtpy() {
+        return size == 0;
+    }
+
+    public Object[] toArray() {
+        return Arrays.copyOf(dataStore, size);
+    }
+
+    public int indexOf(Object obj) {
+        for (int i = 0; i < size; i++) {
+            if(obj.equals(dataStore[i])) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // Reverse a order of data in the list --homework

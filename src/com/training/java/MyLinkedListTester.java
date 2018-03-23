@@ -29,18 +29,31 @@ class MyLinkedList {
             head = new Node(object);
         } else {
             Node node = head;
-            node.nextNode = new Node(object); // -- how to handle adding 3rd node here? -- homework
+//            node.nextNode = new Node(object); // -- how to handle adding 3rd node here? -- homework
             // -- say what is the problem here
             // & say what is your solution here
+            for ( ; node.nextNode != null; node = node.nextNode) {}
+            node.nextNode = new Node(object);
         }
         size++;
     }
 
     // + update
-    // --homework
+    public void set(int index, Object obj) {
+        Node node = getNode(index);
+        Object oldObj = node.nextNode;
+        node.data = obj;
+    }
 
-    // + delete
-    // --homework
+    // + remove
+    public void remove(Object obj) {
+        int index = indexOf(obj);
+        Node node = getNode(index);
+        node.nextNode = node.nextNode.nextNode;
+    }
+
+    // + removeAll
+
 
     // + get
     public Object get(int index) {
@@ -53,16 +66,25 @@ class MyLinkedList {
         return this.size;
     }
 
+    public int indexOf(Object obj) {
+        Node node = head;
+        for (int i = 0; i < size; i++) {
+            if(obj.equals(node.data)) {
+                return i;
+            }
+            node = node.nextNode;
+        }
+        return -1;
+    }
+
     // - iterate through the list
     private Node getNode(int index) {
         Node node  = head;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < index; i++) {
             node = node.nextNode;
-            if(index == i ) {
-                return node;
-            }
+
         }
-        return null;
+        return node;
     }
 
     // -- reverse the data in the linked list
