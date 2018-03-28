@@ -31,10 +31,10 @@ class MyLinkedList {
             Node node = head;
 //            node.nextNode = new Node(object); // -- how to handle adding 3rd node here? -- homework
             // -- say what is the problem here
-            // & say what is your solution here
+//            // & say what is your solution here
             for ( ; node.nextNode != null; node = node.nextNode) {}
-            node.nextNode = new Node(object);
-        }
+                node.nextNode = new Node(object);
+            }
         size++;
     }
 
@@ -48,7 +48,7 @@ class MyLinkedList {
     // + remove
     public void remove(Object obj) {
         int index = indexOf(obj);
-        Node node = getNode(index);
+        Node node = getNode(index-1);
         node.nextNode = node.nextNode.nextNode;
     }
 
@@ -106,3 +106,23 @@ class Node {
      }
 
 }
+//
+//Node1 -> Node2 -> Node3 ->null
+//
+//Before fix
+//Delete node 2
+//
+//get Node2 and delete node2
+//Node2.next = node3
+//node2.next.next = nullpointer
+//
+//After fix
+//
+//Get Node2 and get the previous of node 2
+//say Node2 index - 1 = node 1
+//
+//Node1.next = node2
+//node1.next.next = node3
+//
+//node1.next = node1.next.next
+//node1.next = node3
