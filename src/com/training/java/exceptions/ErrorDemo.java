@@ -19,6 +19,8 @@ public class ErrorDemo {
         System.out.println("-----method2----E--");
     }
     public static void main(String[] args) {
+
+
         ErrorDemo ed = new ErrorDemo();
         try {
             ed.method1();
