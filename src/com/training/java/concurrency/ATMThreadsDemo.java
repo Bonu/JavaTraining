@@ -5,7 +5,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-
 class Withdraw implements Runnable {
 
     Lock lock;
@@ -16,6 +15,7 @@ class Withdraw implements Runnable {
 
     @Override
     public void run() {
+//        Collections.unmodifiableList();
         ATMThreadsDemo atmThreadsDemo = new ATMThreadsDemo();
         atmThreadsDemo.withdraw(100);
     }
@@ -36,8 +36,7 @@ class Deposit implements Runnable {
     }
 }
 
-public class ATMThreadsDemo  {
-
+public class ATMThreadsDemo  extends Object{
 
     private double accountBalanace = 1000;
 
@@ -50,6 +49,7 @@ public class ATMThreadsDemo  {
     }
 
     public void deposit(double amount){
+
         Lock lock = new ReentrantLock();
         lock.lock();
         System.out.println("----deposit----");
