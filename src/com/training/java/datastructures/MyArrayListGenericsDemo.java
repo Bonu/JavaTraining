@@ -3,14 +3,14 @@ package com.training.java.datastructures;
 
 import java.util.Iterator;
 
-class MyArrayList {
+class MyArrayListG<E> {
 
     // -----------primitive data types - by default should be private----------
     private final int INITIAL_CAPACITY = 2;
 
     private int capacity=0;
 
-    private Object[] data;
+    private E[] data;
 
     private int size = 0;
 
@@ -18,25 +18,25 @@ class MyArrayList {
 
     // ----- constructor-------------
 
-    public MyArrayList() {
+    public MyArrayListG() {
         this.capacity = INITIAL_CAPACITY;
-        data = new Object[capacity];
+        data = (E[])new Object[capacity];
     }
 
-    public MyArrayList(int capacity) {
+    public MyArrayListG(int capacity) {
         this.capacity = capacity;
     }
 
     // ------------------------------public methods-----------------------------
 
     // add
-    public void add(Object e){
+    public void add(E e){
         ensureCapacity();
         data[size] = e;
         size++;
     }
     // add by index
-    public void add(int index,Object e){
+    public void add(int index,E e){
         ensureCapacity();
         for(int i = size-1; i>= index; i--){
             data[i+1] = data[i];
@@ -46,18 +46,18 @@ class MyArrayList {
     }
 
     // get by index
-    public Object get(int index) {
+    public E get(int index) {
         return data[index];
     }
 
 
     // update
-    public void set(int i, Object e){
+    public void set(int i, E e){
         data[i] = e;
     }
 
     // delete
-    public void delete(Object e){
+    public void delete(E e){
         // nullify
         // shift position to recover space
         delete(getIndex(e));
@@ -100,7 +100,7 @@ class MyArrayList {
         return new MyArrayListIterator();
     }
 
-    class MyArrayListIterator implements Iterator {
+    class MyArrayListIterator implements Iterator<E> {
 
         private int cursor = 0; // current index
 
@@ -110,12 +110,8 @@ class MyArrayList {
         }
 
         @Override
-        public Object next() {
+        public E next() {
             return data[cursor++];
-        }
-
-        public void remove() {
-            delete(cursor);
         }
     }
 
@@ -124,7 +120,7 @@ class MyArrayList {
     private void ensureCapacity() {
         // size & capacity
         if(size >= capacity) {
-            Object[] newArray = new Object[capacity*2+1];
+            E[] newArray = (E[])new Object[capacity*2+1];
             System.out.println("New array length -> "+newArray.length);
             System.arraycopy(data, 0, newArray, 0, size );
             data = newArray;
@@ -132,7 +128,7 @@ class MyArrayList {
     }
 
     // get Index of object
-    private int getIndex(Object obj) {
+    private int getIndex(E obj) {
         int x = -1;
         for (int i = 0; i < size; i++) {
             if(data[i] == obj) { // TODO revisit
@@ -146,11 +142,11 @@ class MyArrayList {
 }
 
 
-public class MyArrayListDemo {
+public class MyArrayListGenericsDemo {
 
     public static void main(String[] args) {
 
-        MyArrayList myArrayList = new MyArrayList();
+        MyArrayListG myArrayList = new MyArrayListG();
         System.out.println(myArrayList.size());
         myArrayList.add("Hello");
         myArrayList.add("Hello1");
